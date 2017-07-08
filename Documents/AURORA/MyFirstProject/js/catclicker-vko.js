@@ -36,9 +36,8 @@ var Cat=function(cname,ccounter,cimg){
  {nickname:"LEU", catname:"LION", catimgSrc:"images/cat_picture5.jpeg", catclickcounter:0, catlevel:''}
 ];
 */
-var ViewModel = function(){
-  this.nicknames = ko.observableArray(['UNO','FIFI','PIFY','LEU']);
-
+var Cat = function(){
+  this.nicknames = ko.observableArray([{nickname: 'UNO'},{nickname: 'DOS'},{nickname: 'PIFY'},{nickname: 'LEU'}]);
   this.catname = ko.observable('ZIZI');
   this.catclickcounter = ko.observable(0);
   this.catimgSrc = ko.observable('images/cat_picture4.jpeg');
@@ -54,13 +53,16 @@ var ViewModel = function(){
           return 'mature';
        };
     },this);
+};
+var ViewModel = function(){
+this.currentCat = ko.observable(new Cat());
 
  this.resetCounter = function(){
-   this.catclickcounter(0);
+   this.currentCat().catclickcounter(0);
  };
 
  this.incrementCounter = function(){
-   this.catclickcounter(this.catclickcounter()+1);
+   this.currentCat().catclickcounter(this.currentCat().catclickcounter()+1);
  };
 
 };
