@@ -19,13 +19,13 @@ and open the template in the editor.
         <div class="container">
            <!--<select multiple="multiple" width="50" data-bind="options: nicknames, optionsText: 'nickname', value: selectedcat, optionsCaption: 'Choose a cat!'"> </select>-->
            <!--<p data-bind="with: selectedcat">-->
-             <span data-bind="text: catname"></span>&nbsp;&nbsp;
-             <span data-bind="text: catlevel"></span>&nbsp;&nbsp;
-             <span data-bind="text: catclickcounter"></span>&nbsp;&nbsp;
+             <span data-bind="text: currentCat().catname"></span>&nbsp;&nbsp;
+             <span data-bind="text: currentCat().catlevel"></span>&nbsp;&nbsp;
+             <span data-bind="text: currentCat().catclickcounter"></span>&nbsp;&nbsp;
              <input type="button" value="Reset" name="cat-counter-reset" data-bind="click: resetCounter">&nbsp;&nbsp;
-             <img src="" data-bind="click: incrementCounter, attr: {src: catimgSrc}" alt="Click on me">
+             <img src="" data-bind="click: incrementCounter, attr: {src: currentCat().catimgSrc}" alt="Click on me">
     <!-- </p> -->
-    <table><tbody data-bind="foreach: nicknames"><tr><td data-bind="nickname"></td></tr>
+    <ul data-bind="foreach: currentCat().nicknames"><li data-bind="text: nickname"></li></ul>
     </tbody>
     </table>
         </div>
