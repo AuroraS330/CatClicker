@@ -17,14 +17,17 @@ and open the template in the editor.
     </head>
     <body>
         <div class="container">
-           <!--<select multiple="multiple" width="50" data-bind="options: cats, optionsText: 'catname', value: selectedcat, optionsCaption: 'Choose a cat!'"> </select>-->
-          <!-- <p data-bind="with: selectedcat">-->
+           <!--<select multiple="multiple" width="50" data-bind="options: nicknames, optionsText: 'nickname', value: selectedcat, optionsCaption: 'Choose a cat!'"> </select>-->
+           <!--<p data-bind="with: selectedcat">-->
              <span data-bind="text: catname"></span>&nbsp;&nbsp;
              <span data-bind="text: catlevel"></span>&nbsp;&nbsp;
              <span data-bind="text: catclickcounter"></span>&nbsp;&nbsp;
              <input type="button" value="Reset" name="cat-counter-reset" data-bind="click: resetCounter">&nbsp;&nbsp;
              <img src="" data-bind="click: incrementCounter, attr: {src: catimgSrc}" alt="Click on me">
-    <!--</p>-->
+    <!-- </p> -->
+    <table><tbody data-bind="foreach: nicknames"><tr><td data-bind="nickname"></td></tr>
+    </tbody>
+    </table>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
