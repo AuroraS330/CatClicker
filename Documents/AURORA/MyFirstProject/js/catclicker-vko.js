@@ -1,69 +1,59 @@
-
-/*
-var cats = [
- {catname:"ZIZI", catimg:"images/cat_picture1.jpg", catclickcounter:0},
- {catname:"FLUFFY", catimg:"images/cat_picture2.jpeg", catclickcounter:0},
- {catname:"PIF", catimg:"images/cat_picture3.jpeg", catclickcounter:0},
- {catname:"GARFIELD", catimg:"images/cat_picture4.jpeg", catclickcounter:0},
- {catname:"LION", catimg:"images/cat_picture5.jpeg", catclickcounter:0}
+var initialCats = [
+ {catclickcounter:20, nicknames:['UNO'], catname:'ZIZI', catimgSrc:'images/cat_picture1.jpg'},
+ {catclickcounter:0, nicknames:['DODO'], catname:'FLUFFY', catimgSrc:'images/cat_picture2.jpeg'},
+ {catclickcounter:0, nicknames:['PIFY'], catname:'PIF', catimgSrc:'images/cat_picture3.jpeg'},
+ {catclickcounter:0, nicknames:['GOGO'], catname:'GARFIELD', catimgSrc:'images/cat_picture4.jpeg'},
+ {catclickcounter:0, nicknames:['LEU'], catname:'LION', catimgSrc:'images/cat_picture5.jpeg'}
 ];
-var Cat=function(cname,ccounter,cimg){
-  this.selectedcatname = ko.observable();
-  this.selectedcatname = cname;
-  this.selectedcatclickcounter = ko.observable();
-  this.selectedcatclickcounter(ccounter);
-  this.selectedcatimg = ko.observable();
-  this.selectedcatimg = cimg;
 
-  this.selectedcatlevel = ko.computed(function(){
-           if(this.selectedcatclickcounter()<2) {
-          return 'newborn';
-       } else if(this.selectedcatclickcounter()<5){
-          return 'infant';
-       } else if(this.selectedcatclickcounter()>10){
-           return 'senior';
-       }else {
-          return 'mature';
-       };
-    },this);
-};*/
-
-/*var cats = [
- {nickname:"UNO", catname:"ZIZI", catimgSrc:"images/cat_picture1.jpg", catclickcounter:0, catlevel:''},
- {nickname:"FF", catname:"FLUFFY", catimgSrc:"images/cat_picture2.jpeg", catclickcounter:0, catlevel:''},
- {nickname:"PIFY", catname:"PIF", catimgSrc:"images/cat_picture3.jpeg", catclickcounter:0, catlevel:''},
- {nickname:"G", catname:"GARFIELD", catimgSrc:"images/cat_picture4.jpeg", catclickcounter:0, catlevel:''},
- {nickname:"LEU", catname:"LION", catimgSrc:"images/cat_picture5.jpeg", catclickcounter:0, catlevel:''}
-];
-*/
-var Cat = function(){
-  this.nicknames = ko.observableArray([{nickname: 'UNO'},{nickname: 'DOS'},{nickname: 'PIFY'},{nickname: 'LEU'}]);
-  this.catname = ko.observable('ZIZI');
-  this.catclickcounter = ko.observable(0);
-  this.catimgSrc = ko.observable('images/cat_picture4.jpeg');
+var Cat = function(data){
+  this.catname = ko.observable(data.catname);
+  this.catclickcounter = ko.observable(data.catclickcounter);
+  this.catimgSrc = ko.observable(data.catimgSrc);
+  this.nicknames = ko.observableArray(data.nicknames);
 
   this.catlevel = ko.computed(function(){
-      if(this.catclickcounter()<2) {
-          return 'newborn';
-       } else if(this.catclickcounter()<5){
-          return 'infant';
-       } else if(this.catclickcounter()>10){
-           return 'senior';
+     var level = '';
+     var clickcounter = this.catclickcounter();
+      if(clickcounter<2) {
+          level= 'newborn';
+       } else if(clickcounter<5){
+          level= 'infant';
+       } else if(clickcounter>10){
+           level= 'senior';
        }else {
-          return 'mature';
+          level='unknown';
        };
+       return level;
     },this);
+
+    this.resetCounter = function(){
+       return this.catclickcounter(0);
+    };
+
+    this.incrementCounter = function(){
+       return this.catclickcounter(this.catclickcounter()+1);
+    };
 };
+
 var ViewModel = function(){
-this.currentCat = ko.observable(new Cat());
+var self = this;
 
- this.resetCounter = function(){
-   this.currentCat().catclickcounter(0);
- };
+this.catList = ko.observableArray([]);
 
- this.incrementCounter = function(){
-   this.currentCat().catclickcounter(this.currentCat().catclickcounter()+1);
- };
+initialCats.forEach(function(catItem){
+  self.catList.push(new Cat(catItem));
+});
 
+this.currentCat = ko.observable(this.catList()[0]);
+/*
+this.resetCounter = function(){
+   self.currentCat().catclickcounter(0);
+};
+
+this.incrementCounter = function(){
+   self.currentCat().catclickcounter(self.currentCat().catclickcounter()+1);
+};
+*/
 };
 ko.applyBindings(new ViewModel());
