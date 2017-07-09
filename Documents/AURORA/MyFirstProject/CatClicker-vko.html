@@ -17,17 +17,17 @@ and open the template in the editor.
     </head>
     <body>
         <div class="container">
-           <!--<select multiple="multiple" width="50" data-bind="options: nicknames, optionsText: 'nickname', value: selectedcat, optionsCaption: 'Choose a cat!'"> </select>-->
-           <!--<p data-bind="with: selectedcat">-->
-             <span data-bind="text: currentCat().catname"></span>&nbsp;&nbsp;
-             <span data-bind="text: currentCat().catlevel"></span>&nbsp;&nbsp;
-             <span data-bind="text: currentCat().catclickcounter"></span>&nbsp;&nbsp;
+           <select multiple="multiple" width="50" data-bind="options: catList, optionsText: 'nicknames', value: currentCat, optionsCaption: 'Choose a cat!'"> </select>
+           <div data-bind="with: currentCat">
+             Nickname:&nbsp;<span data-bind="text: nicknames"></span>&nbsp;&nbsp;
+             Name:&nbsp;<span data-bind="text: catname"></span>&nbsp;&nbsp;
+             Level:&nbsp;<span data-bind="text: catlevel"></span>&nbsp;&nbsp;
+             Clicks:&nbsp;<span data-bind="text: catclickcounter"></span>&nbsp;&nbsp;
              <input type="button" value="Reset" name="cat-counter-reset" data-bind="click: resetCounter">&nbsp;&nbsp;
-             <img src="" data-bind="click: incrementCounter, attr: {src: currentCat().catimgSrc}" alt="Click on me">
-    <!-- </p> -->
-    <ul data-bind="foreach: currentCat().nicknames"><li data-bind="text: nickname"></li></ul>
-    </tbody>
-    </table>
+             <img src="" data-bind="click: incrementCounter, attr: {src: catimgSrc}" alt="Click on me">
+
+
+  </div>
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
